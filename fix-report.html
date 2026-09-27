@@ -1,0 +1,64 @@
+<!doctype html><meta charset="utf-8"><body style="background:#fff;color:#111;font:12px/1.5 monospace;white-space:pre-wrap;padding:8px;max-width:760px">=== TABBAR BLOCKS FOUND: 1
+
+--- line 218, len 1638 ---
+
+&lt;div class="tabbar">             &lt;div class="tb on">               &lt;svg viewBox="0 0 24 24">&lt;path d="M4.2 11L12 4.4 19.8 11M6 9.5V19a1.5 1.5 0 001.5 1.5H10v-5.4h4v5.4h2.5A1.5 1.5 0 0018 19V9.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>&lt;/svg>               &lt;span>首页&lt;/span>             &lt;/div>             &lt;div class="tb">               &lt;svg viewBox="0 0 24 24">&lt;rect x="5" y="8.2" width="14" height="12.3" rx="2.2" fill="none" stroke="current
+
+CTX: ...      &lt;/div>             &lt;/div>             &lt;div class="es-body" id="esBody">&lt;/div>           &lt;/div>            &lt;!-- 底部 Tab 栏 -->           
+
+>>> ALL TABBAR BLOCKS REMOVED, index.html rewritten
+
+CSS[.tabbar]: .tabbar {   position: absolute;   left: 0; right: 0; bottom: 0;   height: 90px;   display: flex;   padding: 9px 6px 22px;   background: rgba(255, 255, 255, .94);   -webkit-backdrop-filter: blur(18px);   backdrop-filter: blur(18px);   border-top: 1px solid rgba(0, 0, 0, .06);   z-index: 40; }
+
+CSS[.tabbar]: .tabbar { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); height: auto; min-height: 82px; }
+
+CSS[.tabbar]: .tabbar {   background: rgba(24, 24, 26, .94);   border-top: 1px solid rgba(255, 255, 255, .07); }
+
+CSS[.sbody]: .sbody {   flex: 1;   overflow-y: auto;   -webkit-overflow-scrolling: touch;   padding: 4px 16px 120px; }
+
+CSS[.sbody]: .sbody, .wfwrap, .es-body-grid, .dt-scroll {   scrollbar-width: none;      /* Firefox + Chrome 121+ */   -ms-overflow-style: none;   /* 旧 Edge / IE */ }
+
+CSS[.sbody]: .sbody::-webkit-scrollbar, .wfwrap::-webkit-scrollbar, .es-body-grid::-webkit-scrollbar, .dt-scroll::-webkit-scrollbar {   display: none;              /* Chrome / Safari / 移动端 WebKit */ }
+
+CSS[.wfwrap]: .wfwrap {   flex: 1;   overflow-y: auto;   -webkit-overflow-scrolling: touch;   overscroll-behavior: contain; }
+
+CSS[.wfwrap]: .wfwrap, .es-body-grid, .dt-scroll {   scrollbar-width: none;      /* Firefox + Chrome 121+ */   -ms-overflow-style: none;   /* 旧 Edge / IE */ }
+
+CSS[.wfwrap]: .wfwrap::-webkit-scrollbar, .es-body-grid::-webkit-scrollbar, .dt-scroll::-webkit-scrollbar {   display: none;              /* Chrome / Safari / 移动端 WebKit */ }
+
+CSS[.tb]: .tb {   flex: 1;   display: flex;   flex-direction: column;   align-items: center;   justify-content: center;   gap: 4px;   font-size: 10px;   color: #9b9ba1;   cursor: pointer;   -webkit-user-select: none;   user-select: none; }
+
+CSS[.tb]: .tb svg { width: 23px; height: 23px; }
+
+CSS[.tb]: .tb.on { color: var(--xhs-red); font-weight: 600; }
+
+CSS[.tb]: .tb-plus .plusbtn {   width: 45px;   height: 30px;   border-radius: 10px;   background: linear-gradient(135deg, #ff3b53, var(--xhs-red));   display: grid;   place-items: center;   box-shadow: 0 3px 10px rgba(255, 36, 66, .35);   margin-top: -6px; }
+
+CSS[.tb]: .tb-plus .plusbtn svg { width: 17px; height: 17px; }
+
+CSS[.tb]: .tb { color: #77777f; }
+
+=== app.js tabbar refs: 0
+
+=== placeBubble: function placeBubble() {
+    var s = appSize();
+    var w = currentWidth();
+    var top = clampTop(BUB.top != null ? BUB.top : s.h - 166, s);
+    /* 右吸附时右边缘对齐（胶囊向左生长），左吸附时左边缘对齐 */
+    var left = BUB.side === 'right' ? s.w - w - BUB.EDGE : BUB.EDGE;
+    bubble.style.left = left + 'px';
+    bubble.style.top = top + 'px';
+  }
+
+  function setBubbleMode(mode) {
+    clearTimeout(BUB.hideT);
+    BUB.mode = mode;
+    if (mode === 'capsule') {
+      bubbleLabel.style.display = ''; /* 回到布局流，以便测量实际文字宽度 */
+      var lw = bubbleLabel.getBoundingClientRect().width / FIT; /* 除以缩放系数还原布局像素 */
+      /* 宽度 = 左内边距16 + 星标24 + 间距10 + 文字实际宽 + 右内边距22（五项求和，文字绝不贴边） */
+      bubble.style.width = Math.round(72 + lw) + 'px';
+      bubble.classList.add('capsule');
+    } else {
+      bubble.classList.remove('capsule');
+</body>

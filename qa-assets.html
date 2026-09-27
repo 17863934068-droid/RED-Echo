@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Red Echo · 素材检查页（内部，上线前删除）</title>
+<style>
+  body { margin: 0; padding: 32px 28px 60px; background: #f6f6f8; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif; color: #222; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { font-size: 13px; color: #888; margin-bottom: 28px; }
+  h2 { font-size: 15px; margin: 28px 0 12px; color: #444; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+  .card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+  .card img { width: 100%; height: 150px; object-fit: cover; display: block; background: #e8e8ec; }
+  .card .cap { padding: 7px 10px; font-size: 11px; color: #666; line-height: 1.5; }
+  .card .cap b { font-size: 12px; color: #222; font-weight: 600; display: block; }
+  .ok { color: #1a9e42; font-weight: 600; }
+</style>
+</head>
+<body>
+  <h1>Red Echo 素材检查页</h1>
+  <div class="sub">内部 QA 用 · 不属于手机 Demo · 上线前删除。共 42 张，全部本地化于 images/，运行时零外链。</div>
+  <div id="app"></div>
+<script src="data.js"></script>
+<script>
+(function () {
+  var groups = [
+    { name: '场景一「云南雨季自由行」结果页笔记封面 ×10', files: [
+      ['s1-01.jpg', '雨季去云南到底值不值'], ['s1-02.jpg', '云南自由行10天路线'], ['s1-03.jpg', '雨季行李清单'],
+      ['s1-04.jpg', '环洱海雨天备选'], ['s1-05.jpg', '玉龙雪山雨季实拍'], ['s1-06.jpg', '雨季穿搭'],
+      ['s1-07.jpg', '昆明室内好去处'], ['s1-08.jpg', '香格里拉雨季自驾'], ['s1-09.jpg', '洱海边听雨民宿'], ['s1-10.jpg', '6天5晚路线'],
+    ]},
+    { name: '场景二「云南最新班车时刻」结果页笔记封面 ×8', files: [
+      ['s2-01.jpg', '丽江→泸沽湖大巴'], ['s2-02.jpg', '大理→双廊班车'], ['s2-03.jpg', '香格里拉→德钦班车'],
+      ['s2-04.jpg', '客运站购票攻略'], ['s2-05.jpg', '机场交通对比'], ['s2-06.jpg', '境内航班怎么选'],
+      ['s2-07.jpg', '夜班大巴看星空'], ['s2-08.jpg', '雨季停运提醒'],
+    ]},
+    { name: '场景三「室内绿植养护」结果页笔记封面 ×8', files: [
+      ['s3-01.jpg', '龟背竹裂叶'], ['s3-02.jpg', '新手不死绿植'], ['s3-03.jpg', '多肉拼盆'],
+      ['s3-04.jpg', '换盆教程'], ['s3-05.jpg', '芦荟心得'], ['s3-06.jpg', '北阳台绿植角'],
+      ['s3-07.jpg', '低光植物'], ['s3-08.jpg', '琴叶榕黄叶'],
+    ]},
+    { name: '历史收藏笔记配图（封面+内文）×16', files: [
+      ['col-c1.jpg', '收藏c1 封面｜六天五晚路线记录'], ['col-c1-d1.jpg', 'c1 内文'], ['col-c1-d2.jpg', 'c1 内文'],
+      ['col-c2.jpg', '收藏c2 封面｜通用经验'], ['col-c2-d1.jpg', 'c2 内文'],
+      ['col-c3.jpg', '收藏c3 封面｜雨天旅行安排'], ['col-c3-d1.jpg', 'c3 内文'],
+      ['col-c4.jpg', '收藏c4 封面｜必备物品清单'], ['col-c4-d1.jpg', 'c4 内文'], ['col-c4-d2.jpg', 'c4 内文'],
+      ['col-c5.jpg', '收藏c5 封面｜摄影合集（不合格·被排除）'], ['col-c5-d1.jpg', 'c5 内文'], ['col-c5-d2.jpg', 'c5 内文'], ['col-c5-d3.jpg', 'c5 内文'],
+    ]},
+  ];
+  var app = document.getElementById('app');
+  var total = 0, loaded = 0;
+  groups.forEach(function (g) {
+    var h = document.createElement('h2'); h.textContent = g.name; app.appendChild(h);
+    var grid = document.createElement('div'); grid.className = 'grid'; app.appendChild(grid);
+    g.files.forEach(function (f) {
+      total++;
+      var card = document.createElement('div'); card.className = 'card';
+      var img = new Image();
+      img.onload = function () { loaded++; stat(); };
+      img.onerror = function () { card.style.outline = '2px solid #e02020'; stat(); };
+      img.src = 'images/' + f[0];
+      var cap = document.createElement('div'); cap.className = 'cap';
+      cap.innerHTML = '<b>' + f[1] + '</b>' + f[0];
+      card.appendChild(img); card.appendChild(cap); grid.appendChild(card);
+    });
+  });
+  var stat = (function () {
+    var el = document.querySelector('.sub');
+    return function () { el.textContent = '内部 QA 用 · 不属于手机 Demo · 上线前删除。已加载 ' + loaded + ' / ' + total + ' 张，全部本地化于 images/，运行时零外链。'; };
+  })();
+})();
+</script>
+</body>
+</html>
